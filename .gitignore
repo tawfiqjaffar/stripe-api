@@ -240,7 +240,6 @@ modules.xml
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -433,7 +432,6 @@ replay_pid*
 
 
 ### Maven ###
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
