@@ -32,7 +32,7 @@ public class PaymentService<CreatePaymentResponseType, PaymentHistoryContentType
         PaymentIntent intent;
         try {
             intent = PaymentIntent.create(createParams);
-            stripeIntentListener.onStripeIntentCreated(intent.getId(), intent.getStatus(), createPayment.getContent());
+            stripeIntentListener.onStripeIntentCreated(intent.getClientSecret(), intent.getId(), intent.getStatus(), createPayment.getContent());
         } catch (StripeException e) {
             stripeIntentListener.onStripeIntentError(e);
         }
