@@ -12,6 +12,7 @@ import com.stripe.net.Webhook;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.tawfiqjaffar.domain.CreatePayment;
 import com.tawfiqjaffar.listener.StripeEventListener;
+import com.tawfiqjaffar.listener.StripeIntentListener;
 
 public class PaymentService<CreatePaymentResponseType, PaymentHistoryContentType> {
 
@@ -26,14 +27,14 @@ public class PaymentService<CreatePaymentResponseType, PaymentHistoryContentType
 
     }
 
-    public void createPaymentIntent(final CreatePayment<PaymentHistoryContentType> createPayment, final Long amount, final String currency) {
+    public void createPaymentIntent(final CreatePayment<PaymentHistoryContentType> createPayment, final Long amount, final String currency, StripeIntentListener<PaymentHistoryContentType> stripeIntentListener) {
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency(currency).setAmount(amount).build();
         PaymentIntent intent;
         try {
             intent = PaymentIntent.create(createParams);
-            this.stripeEventListener.onStripeIntentCreated(intent.getId(), intent.getStatus(), createPayment.getContent());
+            stripeIntentListener.onStripeIntentCreated(intent.getId(), intent.getStatus(), createPayment.getContent());
         } catch (StripeException e) {
-            this.stripeEventListener.onStripeError(e);
+            stripeIntentListener.onStripeIntentError(e);
         }
     }
 
