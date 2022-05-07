@@ -13,9 +13,6 @@ import com.stripe.param.PaymentIntentCreateParams;
 import com.tawfiqjaffar.domain.CreatePayment;
 import com.tawfiqjaffar.listener.StripeEventListener;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
-
 public class PaymentService<CreatePaymentResponseType, PaymentHistoryContentType> {
 
     private final String webhookKey;
